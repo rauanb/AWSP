@@ -1,363 +1,164 @@
-# AWS-Practitioner
-Conteúdo para a Certificação AWS Practitioner
+# AWS Cloud Practitioner Essentials
+
+Anotações do curso disponível em AWS Skill Builder
+
+# Introduction to AWS
+
+* Pay for what you need
+* **Computação em nuvem:** entrega sob demanda de recursos de TI pela internet com pagamento por uso
+* AWS foca em fornecer os recursos que não diferenciam os negócios de seus clientes (infra, trabalhos repetitivos) para que eles foquem seus esforços no que os diferencia de seus concorrentes
+
+## Modelos de Implementação
+
+* **Cloud**
+  * executar todas as partes de uma aplicação em cloud
+  * migrar aplicações existentes para cloud
+  * desenvolver aplicações em cloud
+
+* **On Premises**
+  * também conhecido como nuvem privada
+  * implementar recursos usando virtualização
+  * aumentar o uso de recursos com virtualização
+
+* **Híbrido**
+  * conectar recursos em cloud com a infraestrutura on premises
+  * integrar recursos em cloud com aplicações legadas
+
+## Benefícios da Computação em Nuvem
+
+* troca de despesas iniciais por variáveis
+* redução de custos com manutenção
+* capacidade de escalar quando precisar, sem precisar prever a necessidade
+* agilidade pra escalar e testar novos recursos e aplicações
+* disponibilidade global com baixa latência
+* o uso de muitas empresas faz com que a AWS economize, gerando um custo menor ao cliente
+
+# Compute in the Cloud
+
+* multitenancy: distribuição de recursos de hardware entre múltiplas vms
+* vertical scaling: aumentar os recursos de uma instância (cpu, memória)
+
+## Tipos de Instâncias
+
+* **General Purpose** 
+  * recursos balanceados
+  * bancos de dados de pequeno e médio porte
+  * servidor de aplicativos ou games
+* **Compute Optimized**
+  * CPUs de alta performance
+  * processamento de dados com muitas transações
+  * servidores de aplicativos e games com alta performance
+* **Memory Optimized**
+  * RAM de alta performance
+  * banco de dados de alta performance
+  * aplicações em tempo real
+* **Accelerated Computing**
+  * aceleradores de hardware ou coprocessadores
+  * cálculos com ponto flutuante
+  * processamento gráfico e streaming
+* **Storage Optimized**
+  * Armazenamento de alta performance (leitura e escrita)
+  * sistemas de arquivos distribuídos
+  * data warehouse
+
+## Custos
+
+* **On Demand**
+  * custo por uso em horas ou segundos
+  * sem custos iniciais ou compromisso a longo prazo
+  * ideal para aplciações de curto prazo, ambiente de teste ou com carga imprevisível
+  * pode servir para estimar o uso médio dos recursos
+* **Saving Plans**
+  * planos de 1 ou 3 anos
+  * até 72% de economia em relação a On Demand
+  * carga previsível e constante
+* **Reserved Instances**
+  * planos de 1 ou 3 anos
+  * até 75% de economia em relação a On-Demand
+  * opções de pagamento adiantado integral, parcial ou nenhum
+  * opções:
+    * Standard Reserved Instances: regime constante
+    * Convertible Reserved Instances: atributos flexíveis
+    * Schedule Reserved Instances: agendamento programado para eventos, feriados, semanas ou um mês
+* **Spot Instance**
+  * até 90% de economia em relação a On-Demand
+  * aplicações com disponibilidade flexível (que pode ser interrompida sem prejuízos)
+  * mecanismo:
+    * usuário define o preço máximo por hora que deseja pagar
+    * preço da instância varia conforme a disponibilidade
+    * se o preço da instância for menor que o definido pelo usuário, a instância fica disponível
+* **Dedicated Hosts**
+  * podem ser usadas licenças do cliente para Windows Server, SQL Server ou Oracle
+  * pagamento por uso (horas) ou reserva (até 70% de economia)
+  * indicados para atender requisitos de compliance (regulações governamentais)
+
+## Auto Scaling
+
+* problemas com on premises
+  * se investe pouco para não ter hardware parado **~>** não atende aos picos de demanda
+  * se investe muito para atender os picos de demanda **~>** maior parte do tempo em pouco uso
+* auto scaling permite aumentar ou diminuir instâncias baseando-se em
+  * mudanças na demanda **~>** Dynamic Scaling
+  * previsão de demanda **~>** Predictive Scaling
+* scaling up **~>** aumentar os recursos de uma instância
+* scaling out **~>** aumentar o número de instâncias
+* Auto Scaling Group
+  * definição do mínimo, do desejado e do máximo de instâncias
 
-# Conceitos de Cloud
+## Elastic Load Balancing
 
-## Vantagens de um ambiente Cloud
+* dispositivo regional **~>** automaticamente escalável
+* atravessador que distribui a carga entre as instâncias
+* processa cargas externas ou internas (do front para o back)
 
-* velocidade para implantar soluções
-* atualizações/integrações sem interromper o serviço
-* menor custo
-* backup e segurança de dados
-* escalabilidade sem interromper o serviço
+## Messaging and queuing
 
-## Tipos de Cloud
+* **Simple Notification Service**
+  * comunicação entre componentes da aplicação
+  * ideal para arquitetura em micro serviços
+* **Simple Queue Service**
+  * cria e gerencia uma fila de comunicação entre os componentes da aplicação
+  * ideal para trabalhar junto do **SNS** em arquitetura de micro serviços 
 
-* **Infrastructure as a Service:** usuário cuida do SO pra cima **~>** EC2
-* **Plataform as a Service:** usuário cuida somente dos dados e da aplicação **~>** Beanstalk
-* **Software as a Service:** provedor cuida de tudo **~>** Office 365
+## Additional Compute Services
 
-## Público, Privado  e Híbrido
+* **Lambda**
+  * serverless: o cliente não cuida do sevidor
+  * roda código a partir de triggers (máximo de 15 min por execução)
+  * pagamento por tempo de execução
 
-* **público:** disponibilização  de servidores compartilhado ao público geral para utilizar os serviços
-  * mantém a segurança de cada cliente
-* **privado:** disponibilização de servidores exclusivos para o cliente
-  * maior segurança para dados sensíveis (bancos, governos)
-* **híbrido:** utiliza os dois tipos
-  * normalmente público para aplicação e privado para banco de dados
+* **Elastic Container Service**
+  * orquestrador de containers compatível com Docker
+* **Elastic Kubernetes Service**
+  * serviço que permite a execução de Kubernetes
+* **Fargate**
+  * solução serverless para containers
+  * compatível com **ECS** e **EKS**
 
-## Serviços AWS
+# Global Infraestructure and Reliability
 
-* 237 seviços atualmente e aumentando
-* **EC2:** servidores virtuais
-* **route53:** domínios de sites
+Deve-se escolher a região baseado em
 
-## Modelo de Responsabilidade Compartilhada
+* **compliance:** regulações governamentais relacionadas aos dados
+* **latency:** quanto mais próximo dos clientes menor a latência
+* **services:** novos serviços costumam estar disponíveis somente em poucas regiões
+* **pricing:** cada região tem um preço
 
-* **AWS:** segurança **da** nuvem 
-  * hardware dos servidores, armazenamento, redes e instalações
-  * softwares e SO do host
-  * regiões e zonas de disponibilidades
-* **Cliente:** segurança **na** nuvem
-  * depende do serviço contratado
-  * **EC2:** software e SO do guest
-  * **S3:** gerenciamento dos dados e criptografia
+# Networking
 
-## CLI e CloudShell
+# Storage and Databases
 
-* **cli:** é instalada na máquina 
-* **cloudshell:** terminal no próprio navegador
+# Security
 
-# Infraestrutura Global
+# Monitoring and Analytics
 
-* os serviços são disponibilizados por região **~>** verificar disponibilidade
+# Pricing and Support
 
-## Regiões
+# Migration and Innovation
 
-* **representadas por:** sa-east-1
+# The Cloud Journey
 
-* **us:** Estados Unidos
-* **sa:** Brasil
-* **eu:** Europa
+# AWS Certified Cloud Practitioner Basics
 
-## AZ - Zonas de Disponibilidade
 
-* **representadas por:** sa-east-1**a**
-
-* grandes datacenters pertencentes aquela região
-* são interligados por fibras de alta velocidade
-* uma **az** é backup da outra **~>** não para nenhum serviço no caso de desastre em uma
-* fisicamente distantes, mas não mais que 100km
-
-## LZ - Zonas Locais
-
-* pequenos datacenters
-* são ligados às AZs por fibras de alta velocidade
-* são mais próximos do cliente final
-* baixa latência **~>** ideal para serviços de stream, jogos em tempo real e machine learning
-
-## Wavelength
-
-* voltado para dispositivos móveis 5g preferencialmente**~>** latência inferior a 10 ms
-* equipamentos da AWS no  provedor de telefonia
-* equipamentos conectados às AZs com fibra de alta velocidade
-
-## Outspot
-
-* disponibilidade de equipamentos da AWS em datacenters de terceiros/clientes
-
-# IAM - Identity Acces Management
-
-* todo controle dos serviços passa pelo **IAM** através de uma API
-* **acessos via:** console, cli ou API
-* **roles:** permissões para serviços
-* **policies:** permissões/bloqueios de usuários/grupos
-* **novo usuário:** inicialmente sem nenhum privilégio e não associado a nenhuma região
-  * **access key:** acesso direto ao serviço
-  * **password:** acesso ao console
-* **MFA:** usa 2 códigos seguidos
-* **password policy:** definição de requisitos de senha
-
-# EC2 - Elastic Compute Cloud
-
-* **user data:** automação
-  * comandos executados quando a instância é criada
-  * arquivos de até 16kb em bash, batch ou powershell
-
-* **acesso ao S3:** através de roles
-
-## Batch
-
-* execução de scripts em lote
-
-## Lightsail
-
-* EC2 simplificado
-
-## ECS - Elastic Container Service
-
-* **task:** container
-* **registry:** imagem
-* **ECS EC2 Cluster:** o usuário controla
-* **ECS FARGATE:** serverless
-
-# Storage
-
-* diversos serviços: EFS, FSx, S3, S3 Glacier e Storage Gateway
-
-* diversas categorias: block, file e objetc storage
-* **Block Storage:** blocos
-  * armazenado em volumes, como HD interno ou externo (DAS)
-  * baixa latência
-* **File Storage:** dados compartilhados
-  * compartilhados com 1 ou mais usuários
-  * se comparta como um NAS (Network Attached Storage)
-* **Object Storage:** objetos
-  * id
-  * flat address (URL)
-  * metadados
-
-## EBS - Elastic Block Store
-
-* armazenamento de instâncias EC2
-* precisa estar na mesma AZ
-  * para transferir, é criado um snapshot e então restaurado na outra instância
-* **volumes gp2 e gp3:** SSD de baixo custo
-  * uso geral: vms, database, boot, aplicações sensíveis à latência
-  * de 1 GB a 16 TB
-  * 250 MB/s (gp2) e 1 GB/s (gp3)
-* **volumes io1 e io2:** SSD de alta performance
-  * database de fluxo intenso
-  * de 4 GB a 64 TB
-  * 1GB/s (io1 )
-* **volumes st1:** HDD
-  * big data, processamento de logs
-  * de 125 GB a 16 TB
-  * 250 MB/s
-* **volumes sc1:** Cold HDD
-  * dados pouco acessados
-  * de 125 GB a 16 TB
-  * 250 MB/s
-
-## S3 - Simple Storage Service
-
-* sem limite de armazenamento total
-* limite de 5 TB por objeto (arquivo)
-* trabalha com objetos
-* **bucket:** diretório
-  * nome único e universal
-* **durabilidade:** garantia de que o arquivo não será corrompido **~>** 99.999999999 %
-* **disponibilidade:** garantia de acesso ao arquivo **~>** 99.95 %
-* **snapshot:** cópia de um volume
-* **AMI:** cópia da imagem de uma instância
-  * na hora de iniciar uma nova instância, a AMI criada aparece em **My AMIs**
-
-### Classes
-
-* a classe é por arquivo carregado **~>** mesmo bucket pode ter arquivos de várias classes
-
-* **Standard:** uso geral de dados acessados com frequência
-  * baixa latência e alto troughput
-  * resiliente contra desastres em uma AZ inteira
-  * podem ser usadas políticas de ciclo de vida para mudar automaticamente de classe
-  * recuperação ilimitada
-* **Intelligent Tiering:** uso geral
-  * monitora o acesso (pequena cobrança extra) para mudar de categoria
-  * acesso frequente: baixa latência e alto troughput
-    * arquivos de até 128 KB sempre são armazenados nessa categoria e sem monitoramento
-  * acesso não frequente: baixa latência e alto troughput **~>** até 40% de economia
-  * arquivos raramente acessados **~>** até 68% de economia
-    * o arquivo precisa ser restaurado antes de ser acessado
-  * recuperação ilimitada
-  * resiliente contra desastres em uma AZ inteira
-* **Standard Infrequent Access (IA):** armazenamentos de longa duração, backups
-  * pouco acesso, mas acesso rápido
-  * baixa latência e alto troughput
-  * resiliente contra desastres em uma AZ inteira
-  * recuperação por GB
-* **One Zone Infrequent Access:** cópias de backup ou réplicas de regiões
-  * somente uma AZ **~>** economia de até 20%
-* **Glacier Instant Retrieval**
-  * acesso até uma vez por trimestre
-  * aceso em milissegundos
-  * economia de até 68% em relação ao Standard IA
-  * recuperação por GB
-  * resiliente contra desastres em uma AZ inteira
-* **Glacier Flexible Retrieval**
-  * acesso até 2 vezes ao ano
-  * recuperação assíncrona
-  * economia de até 10% em relação ao Instant Retrieval
-  * recuperação ilimitada
-  * resiliente contra desastres em uma AZ inteira
-* **Glacier Deep Archive:** arquivamento de dados legais, registros
-  * acesso até 2 vezes ao ano
-  * recuperação em até 12h
-  * alternativa à fitas magnéticas
-  * resiliente contra desastres em uma AZ inteira
-  * **Object Lock** ou **Vault Lock:** arquivo não pode ser alterado/excluído
-* **Outposts:** no local
-  * não é armazenado em nuvem
-  * autenticação usando IAM
-  * transferência de dados para outras regiões
-
-### Preço
-
-* https://calculator.aws/#/
-* levar em conta armazenamento e recuperação (para as classes específicas)
-* levar em conta mudança de classe
-
-### Versionamento
-
-* cada versão tem um ID diferente
-* atenção ao acúmulo de espaço com muitas versões
-* é possível configurar o número máximo de versões
-
-### Página Estática
-
-1. criar um bucket com ACLs e desbloqueio público
-2. adicionar arquivo index.html
-3. nas permissões do bucket ativar página estática
-4. nas permissões do arquivo ir em object actions **~>** Make public
-5. o link estará no final das permissões do bucket
-
-### Ciclo de Vida
-
-* regras que são aplicadas com o passar do tempo
-* podem ser por grupo de arquivos ou por bucket
-* regra de mudança de classe baseada em acesso
-* regra de exclusão de versão antiga (dias ou número de versões)
-
-### Replicação
-
-* ir em Management **~>** Replication Rules
-* atenção à taxa de replicação + armazenamento dobrado
-* necessário ter o versionamento ativdado
-* pode ser por grupo de arquivos ou por bucket
-
-### Regras de Acesso
-
-* definida em json
-* pode ser via:
-  * **IAM:** aplicada ao usuário, grupo ou role
-  * **Bucket Policies:** aplicada ao bucket
-
-### Storage Gateway
-
-* appliance da AWS na empresa (on promises)
-* faz a comunicação da infraestrutura interna com o S3
-* tem cache interno **~>** baixa latência
-* ideal para backup ou para transição local-cloud
-
-# DNS - Domain Name System
-
-* **Route 53**
-  * políticas de disponibilidade, latência e geolocalização
-
-# Auto Scaling
-
-* **Scaling Up:** aumentar os recursos de uma única instância
-* **Scaling Out:** aumentar o número de instâncias
-* **Auto Scaling Group:** grupo de subnets que serão auto escaladas
-* **Cloud Watch:** gerencia a inicialização/desligamento de instâncias
-  * baseado em regras de CPU entre outras
-  * instâncias cópias da **Launch Tamplate**
-* **Target Tracking:** 
-  * sobe 1 instância ao atingir o limite definido nela 
-  * para tráfegos muito intensos pode não atender
-* **Step/Simple Scaling:**
-  * sobre mais de uma instância a depender do número de requisições
-
-# Load Balancer
-
-* é uma feature do **EC2**
-* faz a distribuição de requisições entre as instâncias
-* trabalhar muito bem com o auto scaling
-
-## ALB - Application Load Balancer
-
-* mais detalhado e inteligente
-* camada 7 **~>** Aplicação
-* roteamento baseado em PATH (/contato, /eventos) ou em host (subdomínios)
-* pode apontar para instâncias, containers, lambda e targets
-
-## NLB - Network Load Balancer
-
-* mais rápido
-* camada 4 **~>** TCP/IP
-* roteamento baseado em IP ou TCP/UDP
-
-# Billing
-
-* cobraça baseada em compute, storage e transfer out
-* **pay as you go:** a conta começa com $0 e com o passar dos dias no mês vai acumulando
-* pagamento por demanda **~>** em segundos a partir de 60s
-* **pay less as you use more:** recursos mais performáticos têm melhor custo-benefício
-* grandes descontos para serviços reservados
-* **CAPEX vs OPEX**
-  * **Capital Expenditure:** investimento inicial alto **~>** pré pago
-  * **Operational Expenditure:** investimento crescente conforme o uso **~>** pós pago
-* **Budget:** definição do orçamento base e alertas
-* **Cost Explorer:** relatórios de gastos
-
-## Planos
-
-* **Basic:** gratuito, sem suporte (somente self service)
-* **Developer:** email horário comercial, 1 ticket aberto por vez, 12 horas de tempo de resposta
-* **Business:** email, chat ou phone 24/7, sem limite de tickets abertos, 1 hora de tempo de resposta
-* **Enterprise:** Technical Account Manager (TAM)
-
-## Organizations
-
-* semelhante ao AD do Windows (Organization Unit, Accounts, Resources e Policies)
-* separa os recursos e gastos por setor ou grupo
-
-# Segurança
-
-* **compliance:** conformidade
-* Shared Responsability Model
-
-* **Web Application Firewall (WAF):** identifica tráfegos maliciosos na camada 7
-
-* **Shield:** identifica e inibe ataques de **DDoS** 
-  * **Distributed Denial of Service:** tráfego altímissimo que impede o serviço de atender as requisições
-* **Inspector:** agente que identifica vulnerabilidades em instâncias EC2
-* **Trusted Advisor:** analisa em tempo real toda a estrutura e indica melhorias
-* **Cloud Trail:** monitoramento de comandos via APIs e console
-* **Athena:** busca informações no S3 usando SQL
-* **Macie:** busca informações no S3 usando Machine Learning e Natural Language Processing
-  * indicado para dados sensíveis, como de transações financeiras
-
-# CloudFormation
-
-* cria a estrutura a partir de um template (yaml ou json)
-* controle de versões
-* visualizar as mudanças antes de aplicá-las
-* previsão de gastos
-* automatização para destruir em períodos sem uso e recriar
-
-# Lambda + Python
-
-1. Criar par de chaves
-2. Criar a função no Lambda
-3. Criar o script
 
