@@ -159,7 +159,7 @@ Anotações do curso disponível em AWS Skill Builder
 * local separado das **Regions**
 * cria um cache da aplicação usando o **CloudFront** para entregar mais rápido aos clientes (CDN)
 * também roda o **Route53** (DNS Web Service)
-  * requisição do cliente **~>** Route 53 resolve o nome e devolve ao cliente o IP **~>** CloudFront envia a requisição a Edge Location mais próxima e se conecta ao Load Balancer **~>**Load Balancer envia a requisição às instâncias EC2
+  * requisição do cliente **~>** Route 53 resolve o nome e devolve ao cliente o IP **~>** CloudFront envia a requisição a Edge Location mais próxima e se conecta ao Load Balancer **~>** Load Balancer envia a requisição às instâncias EC2
 
 * um aplicação pode ser cacheada em várias **Edge Locations**
 
@@ -252,7 +252,7 @@ Anotações do curso disponível em AWS Skill Builder
 ### Intelligent Tiering
 
 * cobra taxa de monitoramento por objeto
-* automatiza a mudança de classe baseado nos acessos
+* automatiza a mudança de classe baseado nos acessos (Standard e Standard IA)
 
 ### Glacier Instant Retrieval
 
@@ -404,7 +404,7 @@ Anotações do curso disponível em AWS Skill Builder
   * custo, performance, segurança, tolerância à falha e limite de serviço
 * para cada categoria
   * **green check:** itens com nenhum problema
-  * **orange triangle:** intens a serem investigados
+  * **orange triangle:** itens a serem investigados
   * **red circle:** itens com ação recomendada
 
 # Pricing and Support
@@ -498,7 +498,7 @@ Anotações do curso disponível em AWS Skill Builder
 
 * dispositivos intermediários para migração
 * são instalados on premises para receber os dados e então enviados a AWS
-* AWS sobre os dados para a conta do cliente
+* AWS sobe os dados para a conta do cliente
 
 1. **Snowcone:** 2 CPUs, 4 GB de ram e 8 TB de armazenamento
 2. **Snowball Storage Optmized:** 40 vCPUs, 80 GB de ram, 80 TB (HDD) e 1 TB (SSD)
@@ -512,7 +512,7 @@ Anotações do curso disponível em AWS Skill Builder
   * **Transcribe:** converte texto para voz
   * **Comprehend:** localiza padrões em textos
   * **Fraud Detector:** identifica atividades potencialmente fraudulentas
-  * **Lex:** criação de chatbos com texto e voz
+  * **Lex:** criação de chatbots com texto e voz
 * **SageMaker:** ferramenta de Machine Learning 
 
 # The Cloud Journey
@@ -536,8 +536,3 @@ Anotações do curso disponível em AWS Skill Builder
 4. Aumento de agilidade e velocidade para testes
 5. Sem gastos com manutenção de infraestrutura
 6. Global em minutos
-
-# AWS Certified Cloud Practitioner Basics
-
-
-
