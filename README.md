@@ -1,538 +1,1382 @@
-# AWS Cloud Practitioner Essentials
-
-Anotações do curso disponível em AWS Skill Builder
-
-# Introduction to AWS
-
-* Pay for what you need
-* **Computação em nuvem:** entrega sob demanda de recursos de TI pela internet com pagamento por uso
-* AWS foca em fornecer os recursos que não diferenciam os negócios de seus clientes (infra, trabalhos repetitivos) para que eles foquem seus esforços no que os diferencia de seus concorrentes
-
-## Modelos de Implementação
-
-* **Cloud**
-  * executar todas as partes de uma aplicação em cloud
-  * migrar aplicações existentes para cloud
-  * desenvolver aplicações em cloud
-
-* **On Premises**
-  * também conhecido como nuvem privada
-  * implementar recursos usando virtualização
-  * aumentar o uso de recursos com virtualização
-
-* **Híbrido**
-  * conectar recursos em cloud com a infraestrutura on premises
-  * integrar recursos em cloud com aplicações legadas
-
-## Benefícios da Computação em Nuvem
-
-* troca de despesas iniciais por variáveis
-* redução de custos com manutenção
-* capacidade de escalar quando precisar, sem precisar prever a necessidade
-* agilidade pra escalar e testar novos recursos e aplicações
-* disponibilidade global com baixa latência
-* o uso de muitas empresas faz com que a AWS economize, gerando um custo menor ao cliente
-
-# Compute in the Cloud
-
-* multitenancy: distribuição de recursos de hardware entre múltiplas vms
-* vertical scaling: aumentar os recursos de uma instância (cpu, memória)
-
-## Tipos de Instâncias
-
-* **General Purpose** 
-  * recursos balanceados
-  * bancos de dados de pequeno e médio porte
-  * servidor de aplicativos ou games
-* **Compute Optimized**
-  * CPUs de alta performance
-  * processamento de dados com muitas transações
-  * servidores de aplicativos e games com alta performance
-* **Memory Optimized**
-  * RAM de alta performance
-  * banco de dados de alta performance
-  * aplicações em tempo real
-* **Accelerated Computing**
-  * aceleradores de hardware ou coprocessadores
-  * cálculos com ponto flutuante
-  * processamento gráfico e streaming
-* **Storage Optimized**
-  * Armazenamento de alta performance (leitura e escrita)
-  * sistemas de arquivos distribuídos
-  * data warehouse
-
-## Custos
-
-* **On Demand**
-  * custo por uso em horas ou segundos
-  * sem custos iniciais ou compromisso a longo prazo
-  * ideal para aplciações de curto prazo, ambiente de teste ou com carga imprevisível
-  * pode servir para estimar o uso médio dos recursos
-* **Saving Plans**
-  * planos de 1 ou 3 anos
-  * até 72% de economia em relação a On Demand
-  * carga previsível e constante
-* **Reserved Instances**
-  * planos de 1 ou 3 anos
-  * até 75% de economia em relação a On-Demand
-  * opções de pagamento adiantado integral, parcial ou nenhum
-  * opções:
-    * Standard Reserved Instances: regime constante
-    * Convertible Reserved Instances: atributos flexíveis
-    * Schedule Reserved Instances: agendamento programado para eventos, feriados, semanas ou um mês
-* **Spot Instance**
-  * até 90% de economia em relação a On-Demand
-  * aplicações com disponibilidade flexível (que pode ser interrompida sem prejuízos)
-  * mecanismo:
-    * usuário define o preço máximo por hora que deseja pagar
-    * preço da instância varia conforme a disponibilidade
-    * se o preço da instância for menor que o definido pelo usuário, a instância fica disponível
-* **Dedicated Hosts**
-  * podem ser usadas licenças do cliente para Windows Server, SQL Server ou Oracle
-  * pagamento por uso (horas) ou reserva (até 70% de economia)
-  * indicados para atender requisitos de compliance (regulações governamentais)
-
-## AS - Auto Scaling
-
-* problemas com on premises
-  * se investe pouco para não ter hardware parado **~>** não atende aos picos de demanda
-  * se investe muito para atender os picos de demanda **~>** maior parte do tempo em pouco uso
-* auto scaling permite aumentar ou diminuir instâncias baseando-se em
-  * mudanças na demanda **~>** Dynamic Scaling
-  * previsão de demanda **~>** Predictive Scaling
-* scaling up **~>** aumentar os recursos de uma instância
-* scaling out **~>** aumentar o número de instâncias
-* Auto Scaling Group
-  * definição do mínimo, do desejado e do máximo de instâncias
+# Ultimate AWS Certified Cloud Practitioner
 
-## ELB - Elastic Load Balancing
+Anotações do curso do Stephane Maarek
 
-* dispositivo regional **~>** automaticamente escalável
-* atravessador que distribui a carga entre as instâncias
-* processa cargas externas ou internas (do front para o back)
+# What is Cloud Computing?
 
-## Messaging and queuing
+*Entrega sob demanda de recursos como computação, banco de dados e aplicações*
 
-* **Simple Notification Service**
-  * comunicação entre componentes da aplicação
-  * ideal para arquitetura em micro serviços
-* **Simple Queue Service**
-  * cria e gerencia uma fila de comunicação entre os componentes da aplicação
-  * ideal para trabalhar junto do **SNS** em arquitetura de micro serviços 
+## Deployment Models
 
-## Additional Compute Services
+* **Private Cloud:** não exposta na internet, aplicações sensíveis, atender necessidades específicas
+* **Public Cloud:** exposta na internet, infraestrutura pertence e é mantida por terceiros
+* **Hybrid Cloud:** manter parte dos servidores on premises e conectá-los a recursos em cloud
 
-* **Lambda**
-  * serverless: o cliente não cuida do sevidor
-  * roda código a partir de triggers (máximo de 15 min por execução)
-  * pagamento por tempo de execução
+## Vantagens da Cloud
 
-* **ECS - Elastic Container Service**
-  * orquestrador de containers compatível com Docker
-* **EKS -Elastic Kubernetes Service**
-  * serviço que permite a execução de Kubernetes
-* **Fargate**
-  * solução serverless para containers
-  * compatível com **ECS** e **EKS**
+1. troca de investimento em capital (CAPEX) por investimento operacional (OPEX)
+   - pagamento por demanda
+   - redução do Total Cost of Ownership (TCO) e Operational Expense(OPEX)
+2. grande economia em escala
+   - quanto mais usuários, mais eficiente a AWS disponibiliza os recursos
+3. não é necessário estimar capacidade
+4. aumento de velocidade e agilidade
+5. sem gastos com operação e manutenção de data centers
+6. global em minutos
 
-# Global Infraestructure and Reliability
+## Tipos de Cloud Computing
 
-* Deve-se escolher a região baseado em
+Com infra on premises, é necessário gerenciar networking, storage, servers, virtualization, OS, middleware, runtime, data e applications
 
-  * **compliance:** regulações governamentais relacionadas aos dados
+* **IaaS - Infrastructure as a Service:** necessário gerenciar a partir do OS (EC2)
+* **Pass - Plataform as a Service:** necessário gerenciar data e applications somente (Beanstalk)
+* **Saas - Software as a Service:** não é necessário gerenciar nada (Rekognition)
 
-  * **latency:** quanto mais próximo dos clientes menor a latência
+## Princípios do Modelo pay as you go
 
-  * **services:** novos serviços costumam estar disponíveis somente em poucas regiões
+* **compute:** pagamento por tempo de uso
+* **storage:** pagamento por dados armazenados
+* **data transfer:** pagamento somente para saída de informações da cloud
+  * entrada de dados é gratuita
 
-  * **pricing:** cada região tem um preço
+## Global Infrastructure
 
+* **Regions:** grupo de 3 a 6 Availability Zones
+  * regiões têm nomes **~>** region de Sydney tem nome ap-southeast-2
+  * muitos serviços são regionais, mudar de região é como iniciar novamente do zero
+  * serviços globais: IAM, Route 53, CloudFront e WAF
+  * considerar na escolha: compliance, latência, serviços disponíveis e preço
+* **Availability Zones:** um ou mais data centers
+  * AZs têm letras **~>** ap-southeast-2**a**, ap-southeast-2**b** e ap-southeast-2**c**
+  * separadas fisicamente contra desastres
+* **Edge Location:** entrega de conteúdo com baixa latência
+  * também conhecidas como Points of Presence
 
-* **Availability Zone**
-  * um ou mais data centers dentro de uma **Region**
-  * separadas a 100 km para manter a baixa latência e evitar que desastres atinjam mais de uma
-  * boa prática: rodar aplicações em pelo menos 2 instância em **AZs** diferentes
-* **Outposts:** equipamentos da AWS dentro do datacenter do cliente
 
-## Edge Location
 
-* local separado das **Regions**
-* cria um cache da aplicação usando o **CloudFront** para entregar mais rápido aos clientes (CDN)
-* também roda o **Route53** (DNS Web Service)
-  * requisição do cliente **~>** Route 53 resolve o nome e devolve ao cliente o IP **~>** CloudFront envia a requisição a Edge Location mais próxima e se conecta ao Load Balancer **~>** Load Balancer envia a requisição às instâncias EC2
+# IAM - Identity and Access Management
 
-* um aplicação pode ser cacheada em várias **Edge Locations**
+* Global
+* grupos só podem conter usuários (não podem conter outros grupos)
+* usuários podem pertencer a nenhum grupo, um ou mais
+* políticas são aplicadas a usuários ou a grupos
+* **least privilege principle:** dar o mínimo de permissões necessárias
+* **políticas de senha:** tamanho, exigir caracteres especiais, tempo de expiração
+* **MFA:** virtual (App), Universal 2nd Factor (USB), Hardware Key Fob Device (display)
+* na CLI, se um usuário perde permissões, ao tentar usar um recurso a saída é em branco
+* na CloudShell, arquivos criados são persistentes
+* **roles:** permissões para recursos em vez de usuários
+  * usos mais comuns são de EC2 e Lambda
 
-## How to Provisioning Resources
+* **Credential Report:** csv com informações dos usuários **~>** a nível de CONTA
+* **Access Advisor:** lista de serviços/permissões com último uso ou nunca usados **~>** nível de USUÁRIO
 
-* tudo na AWS é uma **API Request** que pode ser feita via:
 
-  * **Management Console:** interface web ou mobile **~>** uso do mouse
 
-  * **CLI:** ferramenta via terminal compatível com windows, linux e mac **~>** scripts
-  * **SDKs:** ferramentas compatíveis com diversas linguagens de programação **~>** programas
+# EC2 - Elastic Compute Cloud
 
-* **Elastic Beanstalk**
+* **Bootstrap:** rodar comandos (como sudo) na primeira vez que uma instância inicia
+  * colocar código no campop User Data
 
-  * automação para EC2 usando código
 
-  * ajustes de capacidade, load balancing e monitoramento
+## Security Group
 
-* **CloudFormation**
-  * Infrastructure as a Code
-  * automação no provisionamento de ambientes completos
+* vinculado à região/VPC: precisa criar outro se trocar de região ou de VPC
+* porta 21 **FTP**
+* porta 22 **SSH** e **SFTP**
+* porta 80 **HTTP**
+* porta 443 **HTTPS**
+* porta 3389 **RDP**
 
-# Networking
+## SSH
 
-* **Virtual Private Cloud**
-  * isolamento de redes dos usuários da AWS
-  * dentro de uma **VPC** podem ser criadas **subnets** para separar os recursos
-  * para entrar ou sair em uma **VPC**, um pacote passa por verificação em **ACL** (Access Control List)
-    * em **Default ACL** toda entrada/saída é **liberada**
-    * em **Custom ACL** toda entrada/saída é **bloqueada** até que sejam criada regras
-    * **ACL** é um filtro *stateless* **~>** não grava informações, verifica todos os pacotes 
-  * para acessar uma instância **EC2**, um pacote passa por verificação em **Security Group**
-    * toda entrada é **bloqueada** até que sejam criadas regras
-    * toda saída é **liberada**
-    * **Security Group** é um filtro *stateful* **~>** grava informações de entrada e não verifica novamente na saída
-    * múltiplas instâncias **EC2** em uma mesma subnet podem usar o mesmo **Security Group** ou diferentes 
-* **Internet Gateway:** interface entre a internet e a **VPC**
-* **Virtual Private Gateway**
-  * só permite conexões autenticadas **~>** cria uma **VPN**
-* **Direct Connet:** conexão direta via fibra entre **VPC** e a rede do cliente
+**Bad Permissions** no windows: propriedades o arquivo **~>** segurança **~>** avançado
 
-# Storage and Databases
+* Quebrar herança
+* Adicionar seu usuário como owner. full control e único usuário
 
-## Instance Stores
+## Saving plans
 
-* **Instance Store:** armazenamento temporário atachado na instância
-  * os dados são perdidos quando a instância é encerrada ou parada e retomada
-* **Block Storage:** arquivos são armazenados em blocos
-  * quando um arquivo é atualizado, somente o bloco é atualizado
-  * ver **Object Storage** na seção seguinte para comparar
-* **EBS - Elastic Block Store:** armazenamento persistente atachado a uma instância da mesma AZ
-  * armazenamento em bloco **~>** ótimo para mudanças pequenas em arquivos grandes
-  * possibilita backup incrementais com snapshots
-  * armazenamento limitado a 16 TB
+* comprometimento de uso (em dolares por mês)
+* uso a mais é cobrado como On Demand
 
-## S3 - Simple Storage Service
+## Capacity Reservations
 
-* **Object Storage:** arquivo, metadados (informações) e chave (identificador)
-  * quando um arquivo é atualizado, todo o objeto é atualizado
-* armazenamento ilimitado
-* Write Once, Read Many (WORM)
-* 99,999999999% de durabilidade
-* limite de 5TB por arquivo
-* permite versionamento
-* para escolher a classe, considerar:
-  * frequência de acesso/recuperação
-  * disponibilidade dos arquivos
+* define a capacidade em uma AZ
+* cobrado como On Demand independente do uso
 
-### Standard
+# EC2 Instance Storage
 
-* acesso frequente
-* armazena os arquivos em no mínimo 3 AZs **~>** alta disponibilidade
-* classe mais cara
-* websites, distribuição de conteúdo e análise de dados
+## EBS - Elastic Block Storage
 
-### Standard Infrequent Access
+* atachado a uma única instância da mesma AZ
+  * se fizer snapshot é possível restaurar em outra AZ
+* atachado via network **~>** pode ser feito a quente
+* necessário definir capacidade e velocidade (IOPS) no provisionamento
+* **Delete on termination:** atributo que pode ser desmarcado
+  * por padrão, o primeiro é marcado para ser deletado e os demais não
 
-* acesso não frequente
-* armazena os arquivos em no mínimo 3 AZs **~>** alta disponibilidade
-* armazenamento mais barato que a Standard
-* recuperação mais cara que a Standard
+* **snapshots:**
+  * é possível copiar de uma região para outra
+  * é possível ativar a lixeira e manter os snapshots apagados
+  * é possível mover o snapshot para a classe **Snapshot Archive** que é 75% mais barata
 
-### One Zone Infrequent Access
+## AMI - Amazon Machine Image
 
-* acesso não frequente
-* armazena os aquivos em somente uma AZ
-* armazenamento mais barato que o Standard IA
-* indicado para dados que podem ser recriados no caso de falha na AZ
+* pode ser usada para instalar seus próprios programas
+* pose der usada pra usar suas própias licenças
+* Para criar uma AMI
+  1. Iniciar uma instância e instalar os programas necessários
+  2. Para a instância para manter integridade dos dados
+  3. Criar a AMI (cria também snapshots)
+  4. Iniciar uma instância com a AMI
 
-### Intelligent Tiering
+## EC2 Image Builder
 
-* cobra taxa de monitoramento por objeto
-* automatiza a mudança de classe baseado nos acessos (Standard e Standard IA)
+* automação para criação de vms ou containers
 
-### Glacier Instant Retrieval
+## EC2 Instance Store
 
-* arquivamento de dados
-* recuperação imediata
-
-### Glacier Flexible Retrieval
-
-* arquivamento de baixo custo
-* recuperação em minutos ou horas
-* dados de clientes ou fotos e vídeos antigos
-
-### Glacier Deep Archive
-
-* classe mais barata de todas
-* armazena os arquivos em no mínimo 3 AZs **~>** alta disponibilidade
-* recuperação em entre 12 e 48 horas
-* acesso 1 ou 2 vezes ao ano
-
-### Outposts
-
-* cria buckets nos armazenamentos da AWS internos a empresa
+* marmazenamento efêmero **~>** perdido quando a instância é encerrada
+* alta performance
+* buffer, cache e conteúdo temporário
 
 ## EFS - Elastic File System
 
-* servidor de arquivos com linux (não é só um HD)
-* disponível em toda a região
-* autoescalável
-* replicação automática
-* ideal para muitos acesso simultâneos
+* é um Network File System
+* pode ser atachado a 100 instâncias simultaneamente
+* somente linux
+* tem a classe **Infrequent Access** para otimizar custos
 
-## RDS - Relational Database Service
+## Shared Responsability Model 
 
-* automatiza hardware, patches e backups
-* compatível com PostgreSQL, MySQL, MariaDB, Oracle e SQL Server
+* **AWS:** replicação de EBS e EFS, troca de hardware defeituoso, proteger os dados de serem acessados pelos colaboradores
+* **Usuário:** backup, snapshots, encriptação, responsável pelos dados armazenados, entender os riscos de se usar Instance Store
 
-## Amazon Aurora
+## FSx
 
-* compatível com MySQL e PostgreSQL
-* mais ráido
-* reduz custos otimizando I/O
-* realiza 6 réplicas em 3 AZs e backup automático
+* file system de alta performance
+* serviço de terceiros
+* 2 principais
+  * **Windows File Server:** para instâncias com Windows ou para máquinas, integrado ao AD
+  * **Lustre:** para HPC (High Performance Computing), para Linux
 
-## DynamoDB
+# Elastic Load Balancing e Auto Scaling Groups
 
-* noSQL **~>** cada tabela contém um item (key) e seus atributos (values)
-* serverless **~>** não precisa instalar, atualizar nem manter nenhum sistema
-* autoescalável
-* resposta em milisegundos em qualquer escala
+* escalabilidade vertical somente para aplicações não distribuídas **~>** banco de dados
+* high availability **~>** pelo menos 2 AZs
+* **escalabilidade:** capacidade do sistema de acomodar aumento de carga por aumento de hardware (vertical) ou por aumento de nós (horizontal)
+* **elasticidade:** havendo escalabilidade, o sistema é capaz de auto escalar, se ajustando com as variações de carga
+* **agilide:** disponibilidade de recursos a poucos cliques e minutos na nuvem, comparado a semanas on premises
 
-## Redshift
+## ELB - Elastic Load Balancer
 
-* data warehousing
-* big data e Business Intelligence
+* o Load Balancer que fica exposto à internet
+* responsável por distribuir o tráfego entre instâncias (back end)
+* concentra um único DNS para a aplicação
+* caso uma instância falhe, ela é ignorada e o tráfego encaminhado a outra **~>** usuário não percebe a falha
+* providencia certificado SSL
+* AWS cuida de manutenções e garante a alta disponibilidade
+* tipos:
+  * **Application:** http, https e gRPC (camada 7)
+    * roteamentos http e DNS estático
+  * **Network:** alta performance, TCP/UDP (camada 4)
+    * IP estático
+  * **Gateway:** protocolo Geneve (camada 3)
+    * detecção de intrusão, direciona o tráfego para firewall do usuário em EC2
+  * **Classic:** depreciado (camada 4 e 7)
 
-## DMS - Database Migration Service
+## ASG - Auto Scaling Groups
 
-* SQL e noSQL
-* durante a migração a origem permanece operacional
-* origens possíveis: on premises, EC2 e RDS
-* destinos possíveis: EC2 e RDS
-* pode ser usado para:
-  * testar aplicações no banco de produção sem afetar os dados/disponibilidade
-  * combinar vários bancos **~>** consolidar
-  * replicação contínua
+* trabalha junto com o Load Balancer
+* necessário criar um **Lauch Template** que é então vinculado ao LB
+* pode escalar manualmente
+* escalar dinamicamente baseado em:
+  * triggers do CloudWatch de uso de CPU
+  * carga específica **~>** manter CPU em torno de 40%
+  * agendado **~>** horários/dias em que se sabe que haverá maior/menor consumo
+  * preditivo (Machine Learning)
 
-## Additional Databases Services
+# S3 - Simple Storage Service
 
-* **DocumentDB:** banco de documentos compatível com MongoDB
-* **Neptune:** banco de grafos usado para redes sociais, detecção e fraudes e recomendação de engines
-* **Quantum Ledger Database:** banco de registro usado para verificar o histórico de mudanças nos dados
-* **Managed Blockchain:** criação e manutenção de redes de blockchain
-* **ElastiCache:** acelerador que adiciona um cache para aumentar a velocidade de leituras recorrentes em bancos (compatível com Redis e Memcached)
-*  **DynamoDB Accelerator (DAX):** adiciona cache em memória para o DynamoDB (reduz o tempo de resposta de milisegundos para microsegundos)
+* buckets são **regionais**
+* arquivos armazenados como objetos
+  * key: caminho completo até o arquivo
+  * 5tb no máximo por objeto
+* o nome do bucket deve ser único em toda AWS
+* versionamento é configurado a nível do bucket
+  * rollback:
+    1. ativar a a chave show versions
+    2. deletar o item (irreversível)
+* arquivos deletados recebem uma flag
+  * são mostrados quando ativada a chave show versions
+  * para recuperar deve selecionar o arquivo com a flag e deletá-lo (irá deletar a flag)
+* todo arquivo é encriptado na AWS (server side)
+  * além dessa encriptação, o usuário também pode encriptar antes de fazer o upload (client side)
 
-# Security
+
+## Segurança
+
+* baseada em usuários do IAM
+* baseada em Bucket Policies **~>** permite acesso de outras contas
+* baseada em Object ACLs
+* baseada em Bucket ACLs
+
+## Replicação
+
+* ativar versionamento nos dois buckets
+* Cross Region Replication ou Same Region Replication
+* podem ser buckets da mesma conta ou de contas diferentes
+
+## Classes
+
+* **durabilidade:** capacidade de não perder arquivos
+  * para um armazenamento de 10 000 000 arquivos, espera-se a perda de 1 arquivo a cada 10 000 anos
+  * todas as classes tem a mesma durabilidade
+
+* **disponibilidade:** capacidade de acessar o arquivo
+  * depende da classe (por exemplo Standand fica indisponível 53 min por ano)
+
+### Standard
+
+* 99.99% disponível
+* dados frequentemente acessados
+* baixa latência e alta transferência
+* suporta falha em 2 instalações simultâneas
+* Big Data, games, distribuição de conteúdo
+
+### Standard Infrequent Access
+
+* 99.9% disponível
+* dados pouco acessados, porém com acesso rápido
+* mais barata que Standard
+* Recuperação de desastres, backups
+
+### One-Zone Infrequent Access
+
+* 99.5% disponível
+* perde-se os dados se a AZ falhar
+* segunda cópia de backup, dados facilmente recriados
+
+### Glacier Instant Retrieval
+
+* custos por armazenamento e restauração
+* restauração em milisegundos
+* mínimo de 90 dias de armazenamento
+
+### Glacier Flexibel Retrieval
+
+* mínimo de 90 dias de armazenamento
+* 3 classes internas de recuperação:
+  * expedited **~>** 1 a 5 minutos
+  * standard **~>** 3 a 5 horas
+  * bulk **~>** 5 a 12 horas **sem custo**
+
+### Glacier Deep Archive
+
+* mínimo de 180 dias de armazenamento
+* classe mais barata
+* 2 classes internas de recuperação:
+  * standard **~>** 12 horas
+  * bulk **~>** 48 horas
+
+### Intelligent Teiring
+
+* move automaticamente os objetos entre as classes
+* baseado no acesso
+* não há custo pela recuperação
+* funcionamento:
+  * todos arquivos ficam no Frequent Access Tier
+  * sem acesso por 30 dias **~>** Infrequent Access Tier
+  * sem acesso por 90 dias **~>**  Archive Instant Access Tier
+  * opcional configurável por 90 a 700+ dias **~>** Achive Access Tier
+  * opcional configurável por 180 a 700+ dias **~>** Deep Archive Access Tier
+* podem ser definidas **Lifecycle Rules** para transitar arquivos entre as classes
+  * essa configuração é feita independente da classe Intelligent Tiering
+
 
 ## Shared Responsability Model
 
-* **AWS:** segurança **da** nuvem
-  * hardware, rede, virtualização
-* **Cliente:** segurança **na** nuvem
-  * acesso, criptografia, SO e aplicações
+* **AWS:** infraestrutura, configuração e análise de vulnerabilidades, compliance
+* **Usuário:** versionamento, políticas, replicação, monitoramento e encriptação
 
-## IAM - Identity and Access Management
+## Storage Gateway
 
-* não usar o usuário root constantemente
-  * criar um usuário com privilégios de criar outros usuários e usar ele
-  * usar a conta de root somente em extrema necessidade, como trocar email da conta ou o plano de suporte
-* **usuário:** identidade que representa uma pessoa ou aplicação que interage com os serviços ou recursos
-  * um novo usuário não tem nenhuma permissão até que lhe seja atribuiída
-  * criar um usuário para cada pessoa que acessa a AWS e atribuir aos grupos
-* **políticas:** documento que permite ou proibe o uso de serviços e recursos
-  * aplicar as políticas aos grupos é mais fácil de organizar do que se aplicar aos usuários
-  * **least privilege principle:** fornecer o mínimo de permissões necessárias
-* **roles:** ou funções, são permissões temporárias as recursos e serviços
-  * o usuário/aplicação/serviço que assumir uma role perde todas as permissões anteriores enquanto estiver assumindo a role
-  * o usuário precisa ter permissão para assumir uma role
+* ponte entre on premises e cloud
+* disponibilização de arquivos, volumes ou fitas
+* "allow on premises servers to **seamlessly** use cloud"
 
-## Organizations
+# Snow Family
 
-* serviço para centralizar várias contas da AWS
-  * máximo de 4 contas por padrão, mas é possível acionar a AWS para solicitar mais
+* **OpsHub:** software instalado nas máquinas locais para controlar os dispositivos **Snow**
+* opções de pagamento por demanda (dia), por mês, adiantado por 1 ou 3 anos 
 
-* consolida cobrança **~>** descontos
-* **Services Control Policies (SCPs):** controle de acesso e recursos por conta ou **OU**
-* **Organizational Units (OU):** grupos de contas da AWS
+## Migração de Dados
 
-## AWS Artifact
+* dispositivos offline
+* custos por dados transferidos
+* armazenamento em blocos ou objetos (compatível com S3)
+* após a transferência par ao S3 os dispositivos são apagados
+* **Snowcone:** até 8 TB de HDD
+  * compacto, resistente a intempéries
+  * armazenamento offline ou online (já tem o DataSync instalado)
+  * recomendado para migrações até 24 TB
+* **Snowcone SSD:** até 14 TB de SSD
+* **Snowball Edge Storage Optmized:** até 80 TB de HDD
+  * armazenamento offline
+  * arranjo de até 15 nós
+  * recomendado para migrações de Petabytes
+* **Snowball Edge Compute Optimized:** até 28 TB de SSD NVMe
+* **Snowmobile:** até 100 PB
+  * caminhão monitorado 24/7 via vídeo e GPS
+  * temperatura controlada
+  * recomendado para migrações de Exabytes
 
-* serviço que fornece acordos e relatórios de segurança e conformidade (realizados por terceiros)
+## Edge Computing
 
-## Costumer Compliance Center
+* computação em áreas remotas, como caminhões, navios e minas
+* internet limitada ou sem internet
+* pré processamento de dados, machine learning, transcrição de mídia
+* pode ter os dados migrados para o S3 posteriormente
+* todos podem rodar EC2 e Lambda através do IoT Greengrass
+* **Snowcone:** 2CPUs, 4GB ram, alimentado por usb ou bateria
+* **Snowball Edge Compute Optimized:** 104 vCPUs, 416 GB ram, GPU opcional
+* **Snowball Edge Storage Optimized:** 40 vCPUs, 80 GB ram
 
-* serviço que fornece artigos e documentos relacionados a conformidade
-* estudos de caso
-* **auditor learning path:** documentos voltados para clientes em cargos de auditoria
+# Databases & Analytics
 
-## AWS Shield
+## RDS - Relational Database Service
 
-* serviço de proteção a ataques de **Distributed Denial of Service (DDoS)**
-* **standard:** sem custo, protege todos os usuários
-* **advanced:** pago, capaz de previnir ataques mais sofisticados e se integra a outros serviços
+* SQL **~>** Postgres, MySQL, MariaDB, Oracle, SQL Server ou Aurora 
+* gerenciado pela AWS
+  * SO atualizado
+  * backups automáticos **Point in Time**
+  * multi AZ
+  * Read Replicas
+    * leituras simlutâneas mais rápidas
+    * até 15 réplicas (na mesma região ou em outra)
+  * escalável (vertical e horizontal)
+  * monitoramento via dashboard
+  * NÃO É POSSÍVEL ACESSAR A INSTÂNCIA VIA SSH
 
-## Demais serviços de Segurança
+## Aurora
 
-* **Key Management Service (KMS):** gerenciador de chaves de criptografia
-* **Web Application Firewall (WAF):** monitoramento e filtro de tráfego usando ACLs
-* **Amazon Inspector:** realiza testes de segurança e lista pontos de melhoria
-* **GuardDuty:** monitora atividades da conta e da rede em busca de ameaças
+* gerenciado pela AWS
+* Postgres ou MySQL
+* Otimizado para Cloud
+  * 5x mais rápido que o MySQL no RDS
+  * 3x mais rápido que o Postgres no RDS
+* armazenamento escalável automaticamente a cada 10gb (até 128tb)
+* mais caro que RDS (20%)
 
-# Monitoring and Analytics
+## DocumentDB
+
+* MongoDB **~>** NoSQL
+* banco de documentos JSON
+* gerenciado pela AWS
+* otimizado para Cloud
+* armazenamento escalável automaticamente a cada 10gb (até 64 tb)
+* milhões de requisições por segundo
+
+## ElasticCache
+
+*  in-memory database **~>** alta performance, baixa latência
+* reduz a carga de leitura no banco
+* Redis e Memcached
+* gerenciado pela AWS
+
+## DynamoDB
+
+* NoSQL **~>** par chave-valor
+* "single digit millisecond latency" **~>** altíssima performance
+* milhões de requisições por segundo, trilhões e linhas
+* gerenciado pela AWS e serveless (o banco já existe, o usuário cria as tabelas)
+* escalável
+* classes de tabelas Standard e Infrequent Access para redução de custos
+* **DAX - DynamoDB Accelerator:** in-memory cache para o DynamoDB
+* **Global Table:** torna a tabela acessível de várias regiões a baixa latência
+
+## Redshift
+
+* postgres
+* data warehousing
+* **OLAP:** online analytical processing **~>** analystics and data warehousing
+* carrega dados a cada hora
+* armazenamento em colunas
+* integração com Quicksight, Tableua e outras ferramentas de BI
+
+## EMR - Elastic MapReduce
+
+* Hadoop clusters: união de instâncias EC2 para processamento de dados
+* big data e machine learning
+
+## Athena
+
+* serveless
+* analytics nos dados armazenados no S3
+* SQL
+
+## QuickSight
+
+* criação de dashboards com uso de machine learning
+* analytics visualizações
+* integração com RDS, Aurora, Athena, Redshift, S3
+
+## Neptune
+
+* banco de grafos
+* gerenciado pela AWS
+* alta disponibilidade
+* pode armazenar bilhões de relações entre os nós
+* mile segundos de latência
+* artigos relacionados (wikipedia), detecção de fraude, engines de recomendações, redes sociais
+
+## QLDB
+
+* Quantum Ledger Database
+* armazenamento de transações financeiras CENTRALIZADO
+* serverless de alta disponibilidade
+* usa SQL
+* immutable journal
+* verificado com criptografia
+
+## Managed Blockchain
+
+* decentralizado
+* usado para:
+  *  se juntar a uma rede pública de blockchain
+  * criar uma rede privada
+* compatível com Hyperledger Fabric e Ethereum
+
+## Glue
+
+* gerencia a extração, transformação e carregamento de dados
+* dados podem ser extraídos do S3 e RDS, transformados e jogados no Redshift para análise
+* usado para preparar dados para serem analisados
+
+## DMS - Database Migration Service
+
+* migração de bancos
+* banco de origem continua disponível durante a migração
+* migração homogênea: Oracle para Oracle
+* migração heterogênea: SQL Server para Aurora
+
+# Outros Serviços de Computação
+
+## ECS - Elastic Container Service
+
+* o usuário provisiona instâncias EC2 para rodar os containers
+
+## Fargate
+
+* serverless
+* o usuário não precisa provisionar instâncias
+* **ECR - Elastic Container Registry:** registro privado para armazenar imagens de containers
+
+## Lambda
+
+* Function as a Service
+  * thumbnail de imagens do S3, cron job
+* serverless
+* compatível com várias linguagens
+* roda funções curtas sob demanda **~>** limite de tempo
+* escalável automaticamente
+* custos por número de vezes invocadas e gb.s de computação
+* event-driven: uma função é invocada mediante um evento/trigger
+  * um evento pode ser um arquivo sendo carregado no S3
+  * um trigger pode ser definido no EventBridge
+
+## API Gateway
+
+* criação, manutenção e monitoramento de APIs serverless
+* expôe funções Lambda como APIs HTTP
+
+## Batch
+
+* semelhante ao Lambda
+* sem limite de tempo, mas com tempo definido
+* roda imagens de docker
+* usa EBS/instance store para armazenamento
+
+## Lightsail
+
+* virtual servers, banco de dados,
+* baixo custo e previsibilidade
+
+# Deployments e Infraestrutura em Escala
+
+## CloudFormation
+
+* Infrastructure as Code
+* JSON e YAML
+* templates
+* usado quando se precisa repetir ambientes em diferentes regiões/contas
+* estimador de custos baseado no template
+* deletando a stack deleta também todos os recursos que ela criou
+* serviço gratuito, paga somente pelos recursos que criar
+
+## CDK - Cloud Development Kit
+
+* uso de linguagens de programação para Infrastructure as code
+* o código é transformado em um template de CloudFormation
+
+## Elastic Beanstalk
+
+* Plataform as a Service
+  * usa CloudFormation por trás dos panos
+* centro de deploy com as ferramentas necessárias para um DEV
+* dashboard de monitoramento
+* serviço gratuito, paga somente pelos recursos que criar
+
+## CodeDeploy
+
+* deploy/upgrade de versão automático
+* funciona com EC2 e on premises **~>** serviço HÍBRIDO
+
+## CodeCommit
+
+* repositório de código
+* compatível com git
+
+## CodeBuild
+
+* compila, testa e gera pacotes para deploy
+* CodeCommit **~>** CodeBuild **~>** Deploy
+
+## CodePipeline
+
+* CICD
+* compatível com CodeCommit, CodeBuild, CodeDeploy, GirHub
+
+## CodeArtifact
+
+* armazenamento de dependências
+* compatível com  Maven, Graddle, npm, yarn, twine, pip e NuGet
+
+## CodeStar
+
+* UI unificada para desenvolvimento **~>** orchestrate
+* "quick way to get started"
+* permite a edição de código na nuvem com Cloud9
+
+## Cloud9
+
+* IDE em nuvem
+* permite colaboração simultânea na edição de código
+
+## SSM - System Manager
+
+* shell de gerenciamento de EC2 e on premises **~>** serviço HÍBRIDO
+  * fecha a porta 22 para ssh **~>** mais seguro
+  * necessário instalar agente
+  * Amazon Linux e Ubuntu AMI já vêm com ele instalado
+* suíte com mais de 10 produtos
+  * patch automático
+  * rodar comandos em todos os servidores
+  * salvar parâmetros com SSM Parameter Store
+* compatível com Windows, Linux, MacOs e Raspbian
+* "get operational insight of your infrastructure"
+
+## OpsWorks
+
+* alternativa ao SSM
+* Chef e Puppet
+* configuração automática de servidores
+* tarefas repetitivas
+* EC2 e on premises
+  * instâncias, bancos, load balancer, volumes EBS
+
+# Infraestrutura Global
+
+* menor latência
+* recuperação de desastre
+* preteção contra ataques
+
+## Route 53
+
+* gerenciador de DNS
+* registros:
+  * **A:** hostname para IPv4
+  * **AAAA:** hostname para IPv6
+  * **CNAME:** hostname para hostname
+  * **alias:** hostname para um recurso da AWS
+
+* Routing Policies:
+  * **Simple Routing Policy:** uma única instância EC2
+  * **Weighted Routing Policy:** várias instâncias com porcentagens (pesos) diferentes de tráfego
+  * **Latency Routing Policy:** várias instâncias, tráfego direcionado para a instância mais próxima (menor latência)
+    * criar um registro para cada instância
+  * **Failover Routing Policy:** 2 instâncias (principal e failover), checa a saúde da principal e envia para a failover em caso de falha
+
+## CloudFront
+
+* serviço global
+* **CDN:** Conten Delivery Network
+* faz cache de conteúdo nas **Edge Location** (ou Points of Presence) **~>** melhora a performance
+* a distribuição ajuda conta ataques DDoS
+  * junto com Shield e Web Application Firewall
+* pode apontar para S3 (para cache ou para upload de arquivos)
+
+|              CloudFront               |       S3 Cross Region Replication        |
+| :-----------------------------------: | :--------------------------------------: |
+|                  CND                  | Precisa ser configurado para cada região |
+|     Cache temporário de arquivos      |   Arquivos upados quase em tempo real    |
+| Conteúdo estático para qualquer lugar |  Conteúdo dinâmico para algumas regiões  |
+
+## S3 Transfer Acceleration
+
+* upload para uma Edge Location e dela para o bucket
+* a conexão entre a Edge Location e o bucket é privada da AWS **~>** mais rápida
+
+## Global Accelerator
+
+* cliente se conecta na Edge Location e dela na aplicação
+* a conexão entre a Edge Location e a aplicação é privada da AWS **~>** 60% mais rápida
+
+## Outposts
+
+* servidores da AWS on premises **~>** serviço híbrido
+* baixa latência e facilidade para migração
+
+## WaveLength
+
+* baixíssima latência aos serviços através de rede 5G
+* cidades inteligentes, AR/VR, veículos inteligentes
+
+## Local Zones
+
+* "extension of an AWS Region"
+* expande a vpc para outras regiões
+* a reigão precisa ter Local Zones disponíveis para serem habilitadas
+
+## Global Applications Architecture
+
+* **Single Region, Single AZ:** sem alta disponibilidade, alta latência global
+* **Single Region, Multi AZ:** alta disponibilidade, alta latência global
+
+* **Active-Passive:** região principal (active) com leitura e escrita, região replicada (passive) somente leitura
+  * alta disponibilidade, baixa latência global para leitura
+* **Active-Active:** todas as regiões permitem escrita
+  *  alta disponibilidade, baixa latência global
+
+# Cloud Integration
+
+## SQS - Simple Queue Service
+
+* serveless
+* decoupled applications
+* mensagens compartilhadas
+* pull-based system
+* a fila pode ser ordenada (FIFO, First In First Out)
+
+## SNS - Simple Notification Service
+
+* decoupled applications
+* "pub/sub"
+* publisher só mandam mensagem para um tópico
+* cada subscriber recebe todas as mensagens
+* email, Lambda, SQS, mobile
+
+## MQ
+
+* serviços de mensagem e fila on premises
+* compatível com RabbitMQ e ActiveMQ
+* usado em migrações que usam esses protocolos
+
+## Kinesis
+
+* real time big data streaming
+
+# Cloud Monitoring
 
 ## CloudWatch
 
-* monitoramento de métricas em tempo real
-* criação de alarmes baseados em métricas (uso de CPU, memória)
-* alarmes podem executar ações (desligar uma instância, por exemplo)
+* métricas de recursos
+* possível criar dashboards com as métricas  desejadas
+* possível criar alarmes para notificar quando uma métrica atingir determinado valor
+  * para EC2, os alarmes podem ser criados na página da instância
+* EC2: cpu, network (não tem monitoramento de RAM)
+* Billing Alarm disponível somente no Norte da Virgínia (us-east-1)
+* log agent pode ser instalado em uma instância ou on premises
 
-## CloudTrail
+## EventBridge
 
-* registra todas as API calls (toda ação em qualquer recurso da AWS)
-  * quem fez a ação, IP, hora, resposta da solicitação
-* **CloudTrail Insights:** serviço extra que detecta atividades suspeitas (iniciar mais instâncias que o usual, por exemplo)
+* **Schedule:** cron jobs, agendamentos
+* **Event Patterns:** reação à ação de algum serviço
+  * exemplo: quando o root fazer login enviar um email pelo SNS
+* pode ser associado a eventos de terceiros, como Zendesk e Datadog
 
-## Trusted Advisor
+# CloudTrail
 
-* avalia a infraestrutura e recomenda mudanças em 5 categorias
-  * custo, performance, segurança, tolerância à falha e limite de serviço
-* para cada categoria
-  * **green check:** itens com nenhum problema
-  * **orange triangle:** itens a serem investigados
-  * **red circle:** itens com ação recomendada
+* registro de todas as ações que acontecem na conta: console, sdk, cli
+* ativado por padrão
 
-# Pricing and Support
+# X-Ray
 
-## Free Tier
+* troubleshooting de performance e dependências
+* visualização com grafos
 
-* **Always Free:** não expira e está disponível a todos os usuários
-  * Lambda permite 1 milhão de execuções por mês
-* **12 Months Free:** a partir da criação da conta
-  * S3, EC2 e CloudFront (todos com limite de uso mensal)
-* **Trials:** teste por um período
-  * Inspector por 90 dias, Lightsail por 750 horas em 30 dias
+# CodeGuru
 
-## Pricing Concepts
+* **Reviewer:** revisão de código
+* **Profiler:** monitoramento de performance
+* usa Machine Learning
 
-* **Pay for what you use:** pagamento pela exata quantidade de recursos utlizados, sem contratos ou licenças
-* **Pay less when you reserve:** alguns serviços permitem reserva (EC2) **~>** economia
-* **Pay less when you use more:** alguns serviços custam menos quanto maior o uso (S3) **~>** economia
+# Health Dashboard
+
+* **Service History:** mostra todas as regiões e serviços, eventuais problemas
+* **Your Account:** mostra alertas e recomendações quando eventos podem causar impacto na sua infra
+
+# VPC & Networking
+
+* **Virtual Private Cloud:** rede privada pra implantação de recursos (restrita a uma região)
+* **Subnets:** partição da rede (restrita a uma AZ)
+* **Internet Gateway:** conecta a VPC à internet
+  * subnets públicas já possuem rota por padrão
+* **NAT Gateway:** conecta VPC privada a internet mantendo-a privada
+
+## NACL & Security Groups
+
+* **Network Access Control List:** firewall a nível de subnet
+  * regras de negação e permissão
+  * somente IPs
+  * stateless: tráfego de retorno precisa ser liberado
+* **Security Groups:** firewall a nível de instância ou ENI (Elastic Network Interface)
+  * somente regras de permissão
+  * IPs ou outros security groups
+  * stateful: tráfego de retorno é liberado automaticamente
+
+## VPC Flow Log
+
+* faz log de informações da VPC
+
+* desativado por padrão
+
+## VPC Peering 
+
+* conecta 2 VPCs usando conexão da AWS
+* conectar A com B e B com C não faz A se conectar com C automaticamente
+
+## VPC Endpoing
+
+* conecta dois serviços da AWS através de uma rede privada
+* **Endpoint Gateway:** S3 e DynamoDB
+* **Endpoint Interface:** demais serviços
+
+## PrivateLink
+
+* conecta uma VPC a outra de um vendedor do Market Place de forma segura
+* no vendedor é criado um Network Load Balancer
+* no cliente é criada uma Elastic Network Interface
+
+## Site to Site VPN
+
+* VPN entre infra on premises e a sua VPC
+  * on premises é criado um Costumer Gateway (CGW)
+  * na VPC é criado um Virtual Private Gateway (VGW)
+* encriptada
+* conecta pela rede pública
+
+## DX - Direct Connect
+
+* conexão física da infra on premises com a VPC
+* mais segura e mais rápida
+
+## Client VPN
+
+* conecta um computador à instância EC2 pelo IP privado
+* usa OpenVPN
+
+## Transit Gateway
+
+* concentrador de conexões (milhares, incluindo on premises)
+* topologia em estrela ou hub-to-spoke
+
+# Security & Compliance
+
+## Shared Responsibility Model
+
+* **AWS:** segurança da nuvem
+  * proteger a infra, hardware, software, instalações e rede
+  * gerenciar serviços como S3, DynamoDB, RDS...
+* **cliente:** segurança na nuvem
+  * em EC2, gerenciamento do SO, firewall e rede
+  * usuário e roles do IAM
+  * encriptação de dados
+* **Controle Compartilhado**
+  * gerenciamento de patchs, configuração de gerenciamento, vigilância e treinamento
+
+## Proteção contra DDoS
+
+* Shield
+  * sua ÚNICA FUNÇÃO é proteger de DDoS
+  * Standard está disponível para todos sem custo adicional **~>** ataques mais simples
+  * Advanced para proteção mais sofisticada 24/7
+  
+* Web Application Firewall
+  * camada 7 (HTTP)
+  * regras podem bloquear iIP, cabeçalho ou corpo de HTTP e URI
+  * protege contra SQL injection e Cross-Site Scripting
+  * bloqueio de países
+  * bloqueio por limite de taxa de requisição
+* CloudFront, Route53 e Auto Scaling
+  * atuam na disponibilidade e distribuição de carga
+
+## Network Firewall
+
+* protege a VPC inteira
+* da camada 3 a 7
+* entrada e saída
+
+## Penetration Testing
+
+* pode ser feito teste de penetração sem aprovação prévia para 8 serviços
+* **NÃO** pode ser feito ataque DDoS ou flooding (que também são penetration test)
+
+## Encriptação
+
+* at rest: dados armazenados
+* in transit: dados em transferência
+* são usada chaves de encriptação
+* **KMS - Key Management Service:** AWS gerencia as chaves
+* **CloudHSM:** o usuário gerencia as chaves, hardware específico
+
+## ACM - AWS Certificate Manager
+
+* criação de certificado SSL/TLS
+* compatível com TLS privados e públicos 
+* gratuito para TLS público
+
+## Secrets Manager
+
+* armazenamento e gerenciamento de senhas
+* programação para rotação de senhas
+* geração de senhas com lambda
+* integração com RDS
+
+## Artifact
+
+* relatórios de segurança e compliance auditados por terceiros como ISO, PCI e SOC
+* acordos como BAA e HIPAA
+* relatório e acordos são disponibilizados para download
+
+## GuardDuty
+
+* descoberta de ameaças usando Machine Learning
+* protege contra CryptoCurrency attacks
+* principais features: VPC Flow Logs, CloudTrail Logs e DNS Logs
+* integração com EventBridge
+
+## Inspector
+
+* testes automatizados de vulnerabilidades
+* integração com Security Hub e EventBridge
+
+## Config
+
+* salva as alterações feitas nos recursos com o tempo
+* esses dados podem ser armazenados no S3 e analisados no Athena
+* pode se integrar ao SNS para notificar alterações
+* verifica o estado (compliant/noncompliant) dos seviços baseado em regras de segurança definidas pelo usuário
+
+## Macie
+
+* busca por informações pessoais no S3
+* Personal Identifiable Information (PII)
+* usa Machine Learning
+
+## Security Hub
+
+* concentra as ferramentas de segurança em um dashboard
+* gerenciamento de segurança para várias contas
+* checagens automáticas de segurança
+
+## Detective
+
+* análise profunda da causa de falhas de segurança
+* "root of issues"
+* usa Machine Learning
+
+## Abuse
+
+* reportar a AWS IPs ou recursos que estão realizando coisas ilegais ou abusivas
+
+## Privilégios do usuário Root
+
+* não usar root constantemente
+* somente o root pode:
+  * alterar configurações de conta (nome, email, etc)
+  * fechar a conta da AWS
+  * restaurar permissões de IAM
+  * alterar ou cancelar plano de suporte
+  * registrar como vendedor no Reserved Instance Marketplace
+
+## IAM Access Analyzer
+
+* localiza serviços compartilhados externamente
+* define uma Zone of Trust
+
+# Machine Learning
+
+## Rekognition
+
+* localiza e identifica em fotos e vídeos
+* objetos, texto, pessoas e cenas
+
+## Transcribe
+
+* converte voz para texto
+* usa Deep Learning Automatic Speech Recognition (ASR)
+* remove automaticamente informações pessoais (PII)
+
+## Polly
+
+* converte texto em áudio
+
+* usa Deep Learning
+
+## Translate
+
+* traduz grandes volumes de texto
+* ideal para sites e aplicações
+
+## Lex
+
+* tecnologia por trás da Alexa
+* usa ASR
+* usado para criar chatbots e call center bots
+
+## Connect
+
+* contact center in cloud
+* pode se integrar a outros CRMs
+
+## Comprehend
+
+* Natural Language Processing (NPL)
+* serverless
+* identifica e organiza textos por tópicos
+* usado para analizar emails de clientes e organizar artigos
+
+## SageMaker
+
+* criação de modelos de Machine Learning
+
+## Forecast
+
+* fazer previsões
+* vendas, planejamento financeiro
+
+## Kendra
+
+* serviço de pesquisa em documentos
+* extração de respostas a partir de pdf, doc, html, power point entre outros
+
+## Personalize
+
+* serviço de recomendações personalizadas
+* usados em lojas de varejo, mídia e entretenimento
+
+## Textract
+
+* extração de texto a partir de imagens escaneadas
+* documentos, textos escritos a mão
+
+# Account Management, Billing & Support
+
+## Organizations
+
+* serviço global
+* gerenciamento de várias contas (filhas) em uma só (master)
+* consolidação de contas **~>** faz somente o pagamento da master
+* agregação de recursos **~>** redução de custos por volume
+* reservas de EC2 podem ser usadas por qualquer conta filha
+* **SCP - Service Control Policies:** restrição de recursos das contas filhas
+
+## Control Tower
+
+* serviço para automatizar a criação de Organizations
+* poucos cliques
+* usa boas práticas
+
+## RAM - Resource Access Manager
+
+* compartilhar recursos entre contas
+
+* é possível compartilhar VPC, EC2, Aurora, Transite Gateway, Route 53 entre outros
+
+* Resource Groups usam TAGs para definir os grupos
+
+## Service Catalog
+
+* criação de templates para disponibilização de recursos
+* o admin cria os templates e atribui aos usuários
+
+## Pricing Models
+
+* pay as you go
+  * custos de EC2 com Linux por SEGUNDO
+
+* save when you reserve
+* pay less by using more
+* pay less as AWS grows
+* volumes EBS: custos por tamanho do volume (independente do uso), por snapshots
+* CloudFront: valores diferentes por região, custos por http/https requests
+* serviços gratuitos: IAM, VPC, Consolidated Billing, Elastic Beanstalk, entre outros
+
+ ## Savings Plan
+
+* comprometimento em dinheiro por hora por 1 ou 3 anos
+* mais fácil definir em dinheiro do que em recursos
+* definido na página do Cost Explorer
+* tipos:
+  * EC2 **~>** 72% de economia
+  * Compute: EC2, Fargate e Lamba **~>** 66% de economia
+  * Machine Learning
+
+## Compute Optimizer
+
+* recomendações baseadas em Machine Learning
+* redução de custos e melhora de performance
+* compatível com EC2, ASG, EBS e Lambda
 
 ## Pricing Calculator
 
-* cria estimativas de gastos
-* estimativas podem ser separadas em grupos
-* gera um link para ser compartilhado
+* usado para decidir migração para Cloud
+* estimativa de custos mensais e anuais
+* baseado em recursos selecionados
 
-## Billing & Cost Management Dashboard
+## Billing Dashboard
 
-* monitoramento de gastos
-* pagamentos
-* compra de Saving Plans
-* criação de Budgets
+* distribuição de custos por recurso
+* previsão do mês
 
-## Consolidated Billing
+## Free Tier Dashboard
 
-* centraliza as contas a serem pagas
-* disponível para Organizations (várias contas gerenciadas por uma root)
-* acúmulo de descontos por maior uso
+* mostra % de uso de cada recurso de Free Tier
 
-## Budgets
+## Cost Allocation Tags
 
-* definição de orçamentos (somente referência, não limita os gastos)
-* criação de alertas baseados em porcentagem de custos
+* definir tags para recursos
+* é possível exportar uma planilha com os custos separados por tags
+
+## Cost and Usage Reports
+
+* relatórios detalhados de custos
+* é a forma mais detalhada de exibir os custos
+* podem ser integrados a Athena, Redshift ou QuickSight
 
 ## Cost Explorer
 
-* análise de custos atuais e passados
-* distribuídos por serviços, regiões ou tags
+* visualização de custos e uso por tempo
+* criação de relatórios personalizados
+* previsão de uso até 12 meses (baseado em uso prévio)
+* nessa página que é definido o Savings Plan
+
+## Budget
+
+* criação de alarmes
+* alarmes de uso e de previsão de uso
+* **tipos:** Cost, Usage, Savings Plan e Reservation
+
+## Cost Anomaly Detection
+
+* monitoramento contínuo com Machine Learning
+* envia relatórios com a causa raiz da anormalidade
+
+## Trusted Advisor
+
+* analisa a conta e faz recomendações
+* categorias:
+  * **Cost Optimization**
+  * **Performance**
+  * **Security**
+  * **Fault Tolerance**
+  * **Service Limits**
+* **Support Plan:** Basic e Developer **~>** 7 checks
+  1. permissões nos buckets do S3
+  2. portas do security groups
+  3. mínimo de uma conta IAM
+  4. MFA na conta root
+  5. snapshots públicas no EBS
+  6. snapshots públicas no RDS
+  7. Limite de serviços
+* **Support Plan:** Business e Enterprise **~>** Todos os checks
+  * pode habilitar alarmes do CloudWatch quando atingir limites
+  * AWS Support API
 
 ## Support Plans
 
-* **Basic:** gratuito para todos, inclui documentação, artigos e fórum
-  * Trusted Advisor com recursos limitados
-  * pode contatar a AWS para dúvidas no custos ou aumentar limite de serviços
-  * **Personal Health Dashboard:** ferramenta que alerta sobre eventos da AWS que podem afetar o usuário
-* **Developer:** recomendações de boas práticas, diagnósticos e identificação de oportunidades de melhoria
+* **Basic**: acesso 24x7 a customer service, documentação, papers e fóruns 
 
-* **Business:** Trusted Advisor completo, suporte limitado a softwaras de terceiros em instâncias
-* **Enterprise:** Technical Account Manager (TAM), resposta em 15 minutos a chamados críticos
+* **Developer:** Basic + 
+  * Cloud Support Associates (email)
+  * abertura de tickets ilimitados (1 por vez)
+  * tempo de resposta de 24h (geral) ou 12h (infra prejudicada)
+* **Business:**  production
+  * Full Trusted Advisor + API
+  * 24x7 telefone, email ou chat com Cloud Support Engineers
+  * abertura de tickets ilimitados (sem limite de tickers simultâneos)
+  * acesso Infrastructure Event Management (custo adicional)
+  * tempo de resposta: 
+    * geral **~>** 24h
+    * infra prejudicada **~>** 12h
+    * produção prejudicada **~>** 4h
+    * produção parada **~>** 1h
 
-## Marketplace
+* **Enterprise On Ramp:** production or business critical
+  * acesso a pool de Technical Account Managers (TAM)
+  * acesso ao Concierge Support Team para boas práticas de conta e custos
+  * Infrasctructure Event Management, Well-Architected & Operations Reviews
+  * tempo de resposta:
+    * produção prejudicada **~>** 4h
+    * produção parada **~>** 1h
+    * business critical system down **~>** 30 minutos
+* **Enterprise:** mission critical
+  * acesso a um TAM designado
+  * tempo de resposta business critical de 15 minutos
 
-* catálogo de softwares de terceiros que rodam nos serviços da AWS
-* alguns produtos permitem a utilização de uma licença previamente adquirida
-* grande parte dos produtos oferece pagamento por demanda
+# Advanced Identity
 
-# Migration and Innovation
+## STS - Security Token Service
+
+* criação de credenciais temporárias e limitadas
+* o usuário/serviço assume uma role com essas credenciais
+
+## Cognito
+
+* dar uma identidade aos usuários de aplicações (capacidade de milhões de usuários)
+  * só criar IAM para pessoas da sua empresa
+* criação de usuários e senha para aplicações Web e Mobile
+* integração com redes sociais para login
+
+## Directory Services
+
+* **Simple AD:** é um AD na nuvem, sem integração
+* **AD Connector:** direciona ao AD on premises, suporta MFA
+* **Managed Microsoft AD:** sistema de confiança entre o AD on premises e em nuvem, suporta MFA
+
+## IAM Identity Center
+
+* sucessor do Single Sign-On
+* um único login para vários recursos:
+  * contas dentro da Organizations
+  * aplicações como Office 365, Salesforce
+  * instâncias Windows
+
+# Other Services
+
+## WorkSpaces
+
+* Desktop as a Service
+* Windows e Linux
+* usado para substitui TS em on premises
+* integrado com KMS
+* pode ser provisionado em várias regiões para reduzir latência
+
+## AppStream 2.0
+
+* acessa as aplicações direto do navegador
+* Desktop Application Stream Service
+* usa aplicações sem provisionar infra (blender, libreoffice..)
+
+## IoT Core
+
+* conecta dispositivos inteligentes a AWS
+* capacidade de conectar bilhões de dispositivos
+
+## Elastic Transcoder
+
+* converte arquivos de mídia armazenados no S3
+* custo por tempo de processamento
+
+## AppSync
+
+* backend para aplicações web e mobile
+* usa GraphQL
+* integrado com DynamoDB e Lambda
+
+## Amplify
+
+* conjunto de ferramentas para aplicações full stack
+* cria o backend baseado na stack definida
+
+## Device Farm
+
+* serviço para testar aplicações web e mobile
+* faz teste com navegadores e diferentes dispositivos (celulares, tablets)
+
+## Backup
+
+* backups por demanda ou agendados
+* suporta Point in Time Recovery
+* pode ser feito em múltiplas regiões e múltiplas contas dentro da Organizations
+
+## Disaster Recovery Strategies
+
+* **Backup and Restore:** **~>** a mais barata
+* **Pilot Light:** somente as funções principais do serviço prontas, sem escalabilidade
+* **Warm Standby:** todas as funções prontas, sem escalabilidade
+
+* **Multi-site/Hot-site:** todas as funções e escalabilidade
+
+## DRS - Elastic Disaster Recovery
+
+* replicação contínua de ambiente on premises na AWS
+* criado ambiente de staging com instâncias mínimas
+* no caso de desastre, ativa o failover e é criado ambiente de produção com instâncias maiores
+
+## DataSync
+
+* mover ou replicar grande quantidade de dados de on premises para AWS
+* armazenamento em S3, EFS ou FSx for Windows
+* replicação passa a ser **incremental** após full load
+
+## Application Discovery Service
+
+* verifica o ambiente on premises para definir as dependências para migração
+* pode ser feito com agente (mais completo) ou sem
+* resultados no Migration Hub
+
+## MGN - Application Migration Service
+
+* serviço de rehost **~>** Lift-and-Shift
+* converte servidores (físicos, virtuais ou em outras clouds) para rodarem nativamente na AWS
+
+## Migration Evaluator
+
+* coleta de dados para definir o plano de migração
+
+## FIS - Fault Injection Simulation
+
+* injection experiments based on Chaos Engineering
+* simulação de excesso de uso do processador, memória, falha no banco...
+* usado para descobrir bugs e gargalos de performance
+
+## Step Functions
+
+* criação visual de workflows usando grafos
+* compatível com Lambda, EC2, ECS, on premises entre outros
+
+## Ground Station
+
+* comunicação de dados com satélites em órbita
+
+## Pinpoint
+
+* campanhas de marketing
+* envio de emails, sms e push notifications
+* criação de templates e agendamentos
+
+# Architecting & Ecosystem
+
+## Well Architecting Framework
+
+* não estimar capacidade **~>** usar auto scaling
+* testar sistemas em produção
+* automatizar arquitetura (Infrastructure as Code)
+* servidores devem ser descartáveis e fáceis de configurar
+  * não configurar demais um sevidor e automatizar sempre
+* usar componentes desacoplados
+* pense em serviços, não servidores
+* 6 pilares
+
+## 1 - Operational Excellence
+
+* *habilidade de rodar e monitorar sistemas para entrega de valor e continuamente melhorar*
+* **Infrasctructure as code ~> ** CloudFromation e CI/CD
+* documentação
+* fazer mudanças constantes, pequenas e reversíveis
+* refinar processos
+* antecipar falhas e aprender com elas
+
+## 2 - Security
+
+* *habilidade de proteger informações e sistemas para entrega de valor através de testes de risco e estratégias de mitigação*
+* centralizar controle e identificar as pessoas/serviços e seus acessos **~>** IAM
+* princípio do mínimo privilégio
+* aplicar segurança em todas as camadas
+* ter acesso ao log de tudo
+* automatizar a segurança
+* proteger dados in transit e at rest
+* simular eventos de segurança e automatizar detecção, investigação e recuperação
+
+## 3 - Reliability
+
+* *habilidade de o sistema se recuperar de uma falha, dinamicamente adquirir mais recursos computacionais para atender às demandas e mitigar falhas*
+* testar procedimento de recuperação e automatizá-los
+* usar Auto Scaling para não precisar adivinhar o uso de recursos
+
+## 4 - Performance Efficiency
+
+* *habilidade de usar recursos de computação eficientemente para atender às demandas e manter essa eficiência enquanto as demandas e tecnologia avançam*
+* usar serviços **serverless**
+* go global in minutes
+* experimentar novos serviços com frequência
+* avaliar logs e performance no CloudWatch
+
+## 5 - Cost Optimization
+
+* *habilidade de rodar sistemas para entrega de valor com o custo mínimo*
+* usar serviços Pay for what you use
+* medir eficiência com CloudWatch
+* não gastar dinheiro com operações em data centers **~>** migração para cloud
+* usar tags para identificar Return of Investment (ROI)
+* usar serviços gerenciados pela AWS
+
+## 6 - Sustainability
+
+* *habilidade de minimizar os impactos ambientais usando recursos em cloud*
+* medir eficiência
+* maximizar utilização de recursos
+* adotar novos hardwares
+* usar serviços gerenciados pela AWS
+
+## Well-Architected Tool
+
+* serviço para avaliar a infra a partir dos 6 pilares
+* avalia as respostas às perguntas dos serviços e indica pontos de melhoria
 
 ## CAF - Cloud Adoption Framework
 
-* **Business Perspective:** estratégias e objetivos do negócio
-* **People Perspective:** análise e treinamento de equipe
-* **Governance Perspective:** estrutura e governança
-* **Plataform Perspective:** modelos e arquiteturas de migração
-* **Security Perspective:** padrões de segurança e controle
-* **Operations Perspective:** operações e procedimentos
+* não é um serviço, é um whitepaper
+* 6 perspectivas, 2 capacidades e 4 domínios de transformação
+* **Business Capabilities**
+  * **Business:** garantir que os investimentos em cloud aceleram os retornos
+  * **People:** garantir a cultura de evolução contínua, liderança e força de trabalho
+    * *serve como uma ponte entre a tecnologia e o negócio*
+  * **Governance:** ajuda a orquestrar as iniciativas em cloud para maximizar os benefícios e minimizar os riscos
+* **Technical Capabilities**
+  * **Plataform:** garantir uma infra escalável, modernizar cargas e implementar recursos cloud-native
+  * **Security:** garantir a confidencialidade, integridade e disponibilidade dos dados
+  * **Operations:** garantir que os recursos de cloud atendam às demandas
+* **Transformation Domains**
+  * **Technology:** migrar e modernizar infra, aplicações, dados e análises
+  * **Process:** digitalizar, automatizar e otimizar operações
+  * **Organization:** reorganizar o modelo de operação e a equipe para evolução rápida
+  * **Product:** reorganizar o modelo de negócios, novos produtos e serviços
 
-## Migration Strategies
+## Right Sizing
 
-1. **Rehosting:** mover as aplicações sem alterações (lift-and-shift)
-   - ideal para transições iniciais que serão revisitadas futuramente
-   - não aproveita todos os benefícios da nuvem
-2. **Replataforming:** leves otimizações para o ambiente em nuvem (lift, tinker, and shift)
-3. **Refactoring:** mudanças grandes na arquitetura da aplicação
-   - uso de features da nuvem
-4. **Repurchasing:** atualizar licenças legadas e utilizar soluções Software as a Service
-5. **Retaining:** manter a aplicação on premises
-   - aplicações críticas ou que necessitam de muitas mudanças para migrar
-6. **Retiring:** encerrar aplicações que não têm mais uso
+* escolher a menor instância que atenda às necessidades **~>** menor custo
+* ter em mente que escalar é muit fácil e rápidp **~>** começar pequeno
+* 2 momentos:
+  * antes de migrar pra cloud **~>** otimizar a infra para não ter recursos desperdiçados e levar essa estrutura não otimizada para cloud
+  * depois de migrar **~>** constantemente avaliar a infra em busca de redução de recursos sem comprometer as aplicações
 
-## Snow Family
+## Ecosystem
 
-* dispositivos intermediários para migração
-* são instalados on premises para receber os dados e então enviados a AWS
-* AWS sobe os dados para a conta do cliente
+* **Free Resources**: blogs, Forums, Whitepapers & Guides, Quick Start, Solutions
+* **Support:** tratado anteriormente
+* **Marketplace:** softwares, containers, AMIs
+* **Training:** Digital, Classroom, Private (para empresas), Academy (universidades), Training and Certification para governo dos EUA e para Enterprise
+* **Professional Services:** time de profissionais que atuam junto a equipe interna
 
-1. **Snowcone:** 2 CPUs, 4 GB de ram e 8 TB de armazenamento
-2. **Snowball Storage Optmized:** 40 vCPUs, 80 GB de ram, 80 TB (HDD) e 1 TB (SSD)
-3. **Snowball Edge Compute Optimized:** 52 vCPUs, 208 GB de ram, GPU Tesla, 42 TB (HDD) e 8 TB (NVME)
-4. **Snowmobile:** 100 PB
+* **Knowledge Center:** portal com FAQs e guias de boas práticas nos principais tópicos da AWS
+* **IQ:** plataforma para contratar free lancers para prestar consultoria
+* **re:Post:** fórum, não indicado para perguntas time-sensitve ou com informações proprietárias
 
-## Innovation
+## AMS - Managed Services
 
-* **serverless:** rodar código sem provisionar ambiente
-* **AI**
-  * **Transcribe:** converte texto para voz
-  * **Comprehend:** localiza padrões em textos
-  * **Fraud Detector:** identifica atividades potencialmente fraudulentas
-  * **Lex:** criação de chatbots com texto e voz
-* **SageMaker:** ferramenta de Machine Learning 
-
-# The Cloud Journey
-
-## Well-Architected Framework
-
-- 6 pilares
-
-1. **Operational Excellence:** monitoramento, automação, documentação, prevenção à falha
-2. **Security:** proteção de dados armazenados e em trânsito, automação
-3. **Reliability:** recuperação de pequenos problemas e desastres, escalabilidade
-4. **Performance Efficiency:** serverless, ser capaz de disponibilizar globalmente em minutos
-5. **Cost Optimization:** usar seviços gerenciados (menor custo)
-6. **Sustainability:** maximar utilização, redução de impacto
-
-## Benefícios da Nuvem
-
-1. Troca de investimento inicial por variável
-2. Economia em escala
-3. Sem necessidade de estimar capacidade
-4. Aumento de agilidade e velocidade para testes
-5. Sem gastos com manutenção de infraestrutura
-6. Global em minutos
+* time de suporte para operar a infra
+* cuidam da infra para o cliente focar nos negócios
